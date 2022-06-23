@@ -1,8 +1,10 @@
 import * as React from "react"
 import { formatDate, formatAmount } from "../../utils/format"
 import "./BankActivity.css"
+import { Link } from "react-router-dom"
 
-export default function BankActivity() {
+export default function BankActivity({ transactions, transfers }) {
+
   return (
     <div className="bank-activity">
       <h2>Transactions</h2>
@@ -13,7 +15,9 @@ export default function BankActivity() {
           <span className="col x2">Amount</span>
           <span className="col x15">Date</span>
         </div>
-        {/* */}
+        {transactions?.map((transaction) => {
+          return <Link to={"/transactions/" + transaction.id}><TransactionRow key={transaction.id} transaction={transaction}/></Link>
+        })}
       </div>
 
       <h2>Transfers</h2>
@@ -24,7 +28,9 @@ export default function BankActivity() {
           <span className="col x2">Amount</span>
           <span className="col x15">Date</span>
         </div>
-        {/* */}
+        {transfers?.map((transfer) => {
+          return <TransferRow key={transfer.id} transfer={transfer}/>
+        })}
       </div>
     </div>
   )
